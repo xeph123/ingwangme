@@ -63,16 +63,16 @@ const Home = () => {
           console.log('leave back')
         },
         onEnterBack: () => {
-          console.log('enter back')
-          tl4.to('.credit', {
+          tl4.pause()
+          gsap.to('.credit', {
             opacity: 0,
             duration: 1,
           })
-          tl4.to('.credit', {
+          gsap.to('.credit', {
             text: '',
+            delay: 1,
+            duration: 0,
           })
-          tl.pause()
-          tl.resume()
         },
       },
     })
@@ -89,18 +89,35 @@ const Home = () => {
         duration: 0,
       })
       .to('.title-back-2', {
-        height: '100vh',
+        height: '50vh',
         ease: 'none',
         duration: 1,
       })
     const tl4 = gsap.timeline({
       paused: true,
     })
+    tl4.set('.credit', {
+      backgroundImage: 'linear-gradient(90deg, #26cce9, #34d399)',
+      backgroundClip: 'text',
+      color: 'transparent',
+    })
     tl4.to('.credit', {
       opacity: 1,
       text: 'Concept HONG <br/> Design MOLDU <br/> Development RYU',
-      duration: 5,
+      duration: 6,
     })
+    tl4.fromTo(
+      '.credit',
+      {
+        backgroundPosition: '0px 50%',
+      },
+      {
+        backgroundPosition: '846px 50%',
+        duration: 5,
+        repeat: -1,
+        ease: 'power2.out',
+      }
+    )
   })
   return (
     <>
@@ -112,7 +129,7 @@ const Home = () => {
         <div className='circle circle-2 absolute top-[80%] left-[80%] bg-amber-300 w-[10vw] h-[10vw] rounded-full scale-0'></div>
         <div className='circle circle-3 absolute top-[50%] left-[56%] translate-[-50%] bg-emerald-200 w-[10vw] h-[10vw] rounded-full scale-0'></div>
         <div className='bg-black title-back-2 absolute top-[50%] left-[50%] translate-[-50%] opacity-0 flex justify-center items-center'>
-          <p className='credit text-center text-[5vw]'></p>
+          <p className='credit text-center text-[5vw]/[1.1] font-bold bg-clip-text'></p>
         </div>
 
         {/* <div className='image-wrapper w-[500px] h-[500px] overflow-hidden scale-0 rounded-full absolute left-[82%] top-[10%]'>
