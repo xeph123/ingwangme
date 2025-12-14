@@ -7,7 +7,7 @@ const Home = () => {
 
   gsap.registerPlugin(ScrollTrigger, TextPlugin, SplitText)
   useGSAP(() => {
-    const split = SplitText.create('h1', {
+    const split = SplitText.create('.title-ingwangme', {
       type: 'chars',
     })
     gsap.set(split.chars, {
@@ -42,16 +42,86 @@ const Home = () => {
       },
       '>' // 🔥 바로 이전 애니메이션 끝난 다음
     )
+
+    const tl3 = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.section-01',
+        pin: true,
+        start: 'top top',
+        end: '+=4000',
+        scrub: true,
+        // markers: true,
+        id: 'section-01',
+        onLeave: () => {
+          tl4.restart()
+          console.log('leave')
+        },
+        onEnter: () => {
+          console.log('enter')
+        },
+        onLeaveBack: () => {
+          console.log('leave back')
+        },
+        onEnterBack: () => {
+          console.log('enter back')
+          tl4.to('.credit', {
+            opacity: 0,
+            duration: 1,
+          })
+          tl4.to('.credit', {
+            text: '',
+          })
+          tl.pause()
+          tl.resume()
+        },
+      },
+    })
+    tl3
+      .to('.circle', {
+        scale: 15,
+        ease: 'none',
+        stagger: 0.1,
+      })
+      .to('.title-back-2', {
+        width: '100vw',
+        ease: 'none',
+        opacity: 1,
+        duration: 0,
+      })
+      .to('.title-back-2', {
+        height: '100vh',
+        ease: 'none',
+        duration: 1,
+      })
+    const tl4 = gsap.timeline({
+      paused: true,
+    })
+    tl4.to('.credit', {
+      opacity: 1,
+      text: 'Concept HONG <br/> Design MOLDU <br/> Development RYU',
+      duration: 5,
+    })
   })
   return (
     <>
-      <section className='section-01 w-screen h-screen bg-black text-white flex justify-center items-center'>
-        <h1 className='font-bold text-white text-[7vw]'>
+      <section className='section-01 w-screen h-screen bg-black text-white flex justify-center items-center overflow-hidden'>
+        <h1 className='title title-ingwangme font-bold text-white text-[7vw]/[1] absolute top-[50%] left-[50%] translate-[-50%] w-full text-center'>
           The Beauty of Human Light
-          {/* {chars.map((c, index) => (
-            <span>{c}</span>
-          ))} */}
         </h1>
+        <div className='circle circle-1 absolute top-[20%] left-[20%] bg-yellow-50 w-[10vw] h-[10vw] rounded-full scale-0'></div>
+        <div className='circle circle-2 absolute top-[80%] left-[80%] bg-amber-300 w-[10vw] h-[10vw] rounded-full scale-0'></div>
+        <div className='circle circle-3 absolute top-[50%] left-[56%] translate-[-50%] bg-emerald-200 w-[10vw] h-[10vw] rounded-full scale-0'></div>
+        <div className='bg-black title-back-2 absolute top-[50%] left-[50%] translate-[-50%] opacity-0 flex justify-center items-center'>
+          <p className='credit text-center text-[5vw]'></p>
+        </div>
+
+        {/* <div className='image-wrapper w-[500px] h-[500px] overflow-hidden scale-0 rounded-full absolute left-[82%] top-[10%]'>
+          <img src='./src/assets/image.png' width='500px' height='500px' />
+        </div> */}
+
+        {/* <h1 className='title title-ingwangme-2 font-bold text-white text-[7vw]/[1] absolute top-[50%] left-[50%] translate-[-50%] w-full text-center opacity-0'>
+          
+        </h1> */}
       </section>
     </>
   )
