@@ -3,8 +3,6 @@ import gsap from 'gsap'
 import { ScrollTrigger, SplitText, TextPlugin } from 'gsap/all'
 
 const Home = () => {
-  // const chars = 'HELLO GSAP'.split('')
-
   gsap.registerPlugin(ScrollTrigger, TextPlugin, SplitText)
   useGSAP(() => {
     const split = SplitText.create('.title-ingwangme', {
@@ -27,8 +25,8 @@ const Home = () => {
     tl2.to(
       split.chars,
       {
-        color: (i) => `hsl(${i * 12}, 90%, 65%)`,
-        stagger: 0.05,
+        color: (i) => `hsl(${i * 15}, 90%, 65%)`,
+        stagger: 0.1,
         ease: 'power2.out',
       },
       '>' // 🔥 바로 이전 애니메이션 끝난 다음
@@ -48,10 +46,11 @@ const Home = () => {
         trigger: '.section-01',
         pin: true,
         start: 'top top',
-        end: '+=4000',
+        end: '+=3000',
         scrub: true,
         // markers: true,
         id: 'section-01',
+
         onLeave: () => {
           tl4.restart()
           console.log('leave')
@@ -97,7 +96,8 @@ const Home = () => {
       paused: true,
     })
     tl4.set('.credit', {
-      backgroundImage: 'linear-gradient(90deg, #26cce9, #34d399)',
+      backgroundImage:
+        'linear-gradient(90deg, hsl(0, 90%, 65%),hsl(150, 90%, 65%),hsl(300, 90%, 65%))',
       backgroundClip: 'text',
       color: 'transparent',
     })
@@ -112,10 +112,10 @@ const Home = () => {
         backgroundPosition: '0px 50%',
       },
       {
-        backgroundPosition: '846px 50%',
+        backgroundPosition: '840px 50%',
         duration: 5,
         repeat: -1,
-        ease: 'power2.out',
+        ease: 'none',
       }
     )
   })

@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       {/* <Header /> */}
-      <main>
+      <main className='overflow-hidden'>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/about' element={<About />} />
